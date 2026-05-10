@@ -1,3 +1,4 @@
+#Chat BOT AI POWERED
 import lmstudio as  lms
 model = lms.llm("google/gemma-4-e2b")
 
@@ -19,4 +20,3 @@ while True:
             response += chunk.content
         print()
         history.append({"role":"assistant","content":response})
-
