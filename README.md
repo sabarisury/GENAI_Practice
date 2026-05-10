@@ -54,7 +54,14 @@ pyenv local 3.11.8
    source venv/bin/activate
    ```
 
-4. **Verify LM Studio is Running**:
+4. **Store API Keys Securely**:
+   - Create a local `.env` file in this folder with your secret values.
+   - Do not commit `.env` to git; it is already ignored by `.gitignore`.
+   - Example values can be kept in `.env.example`.
+   - Load values in Python using `os.getenv("LLM_API_KEY")`.
+   - If using VS Code, enable `python.terminal.useEnvFile` so the terminal reads `.env` automatically.
+
+5. **Verify LM Studio is Running**:
    - Open LM Studio.
    - Load a model (e.g., `google/gemma-4-e2b`).
    - Start the local server.
@@ -179,6 +186,27 @@ python3 chat_bot_lms_model.py
 
 ---
 
+#### Step 7: Large Text Summarization and Evaluation
+Process larger documents safely by chunking, summarizing, and then combining results.
+
+**File**: `lms_model_interview_evlauate_transcibe.py`
+
+**Concepts**:
+- Read a large source file from disk
+- Split text into smaller chunks to avoid token limits
+- Summarize each chunk with `model.respond()`
+- Combine chunk summaries into a final summary
+- Generate a rating or evaluation from the final summary
+
+**Run**:
+```bash
+python3 lms_model_interview_evlauate_transcibe.py
+```
+
+**What to observe**: The script prints progress for each chunk, then shows the final summarized output and a candidate rating.
+
+---
+
 ## Learning Path Summary
 
 | Step | File | Method | Streaming | Chat History | Interactivity |
@@ -188,6 +216,7 @@ python3 chat_bot_lms_model.py
 | 4 | `lms_model_respond.py` | `respond()` | ❌ | ✅ | None |
 | 5 | `lms_model_respond_stream.py` | `respond_stream()` | ✅ | ✅ | None |
 | 6 | `chat_bot_lms_model.py` | `respond_stream()` | ✅ | ✅ | ✅ Interactive |
+| 7 | `lms_model_interview_evlauate_transcibe.py` | `respond()` | ❌ | ✅ | None |
 
 ## Project Structure
 
@@ -201,6 +230,7 @@ GENAI_Practice/
 ├── lms_model_complete_stream.py   # Step 3: One-off prediction with streaming
 ├── lms_model_respond.py           # Step 4: Chat mode (synchronous)
 ├── lms_model_respond_stream.py    # Step 5: Chat mode with streaming
+├── lms_model_interview_evlauate_transcibe.py  # Step 7: Large-text summarization + evaluation
 └── chat_bot_lms_model.py          # Step 6: Full interactive chat bot
 ```
 

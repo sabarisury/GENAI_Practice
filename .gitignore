@@ -2,6 +2,9 @@
 venv/
 .venv
 
+# Local environment variables
+.env
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
