@@ -1,0 +1,176 @@
+Interview Transcript (Software Engineer – Data & AI Role)
+
+Interviewer: Good morning. Thanks for joining today. Could you start by introducing yourself?
+
+Candidate: Good morning. Thank you for having me. My name is Sabari, and I have a strong background in data engineering and machine learning systems. Over the past few years, I’ve worked extensively with Python, SQL, and distributed data processing frameworks like PySpark. I’ve also been exploring generative AI systems, building local LLM-based applications, and working with tools that enable efficient inference pipelines. My core interest lies in designing scalable data systems and integrating intelligent models into real-world applications.
+
+⸻
+
+Interviewer: That’s a great start. Let’s dive into your technical experience. Can you explain a project where you handled large-scale data processing?
+
+Candidate: Certainly. In one of my recent projects, I worked on processing large volumes of transactional data using PySpark. The goal was to generate real-time insights and support downstream analytics. The dataset consisted of millions of records being ingested daily. I designed a pipeline that performed data cleaning, transformation, and aggregation using Spark DataFrames.
+
+One of the key challenges was handling skewed data during joins and aggregations. To solve this, I implemented techniques like salting and broadcast joins where applicable. I also used window functions such as ROW_NUMBER, LAG, and LEAD to derive insights like user activity trends and session-based metrics.
+
+⸻
+
+Interviewer: Interesting. How did you ensure performance optimization in your Spark jobs?
+
+Candidate: Performance optimization was critical. First, I focused on minimizing shuffles by carefully designing transformations. I also ensured proper partitioning of data based on usage patterns. Caching intermediate DataFrames helped reduce recomputation in iterative workloads.
+
+Another important aspect was monitoring. I regularly checked the Spark UI to identify bottlenecks such as long-running stages or skewed partitions. Based on those observations, I tuned configurations like executor memory, number of cores, and parallelism settings.
+
+⸻
+
+Interviewer: Great. Let’s move to SQL. Can you explain how window functions work and give an example?
+
+Candidate: Sure. Window functions allow us to perform calculations across a set of rows related to the current row without collapsing the result into a single output like GROUP BY does.
+
+For example, if we want to calculate the difference between consecutive rows in a time series, we can use the LAG function:
+
+SELECT 
+    user_id,
+    event_time,
+    event_value,
+    event_value - LAG(event_value) OVER (PARTITION BY user_id ORDER BY event_time) AS diff
+FROM events;
+
+This helps analyze trends without losing row-level granularity.
+
+⸻
+
+Interviewer: Good explanation. Now let’s talk about Python. How do you handle large files that don’t fit into memory?
+
+Candidate: When dealing with large files, I avoid loading everything into memory at once. Instead, I process the file in chunks. For example, using a generator pattern:
+
+with open("file.txt", "r") as f:
+    for line in f:
+        process(line)
+
+For structured data like CSVs, libraries like pandas allow chunk-based processing using chunksize. This ensures memory efficiency. Additionally, for extremely large datasets, I prefer distributed systems like Spark.
+
+⸻
+
+Interviewer: That makes sense. Since you mentioned generative AI, can you describe your experience working with local language models?
+
+Candidate: Yes. I’ve been experimenting with running large language models locally using lightweight inference engines. I worked with quantized models to reduce memory usage while maintaining reasonable performance.
+
+One project involved building a chatbot that operates entirely offline. It loads a local model, processes user input, and streams responses in real time. I implemented chunking strategies for large inputs and used context management to maintain conversation continuity.
+
+⸻
+
+Interviewer: How do you handle token limitations in such systems?
+
+Candidate: Token limitation is a key challenge. To address this, I split large inputs into smaller chunks and process them sequentially. Each chunk is summarized, and then those summaries are combined into a final result.
+
+For example:
+
+1. Break text into chunks
+2. Summarize each chunk
+3. Combine summaries into final output
+
+This hierarchical summarization approach helps manage token constraints effectively.
+
+⸻
+
+Interviewer: Good approach. Let’s talk about system design. Suppose you need to design a scalable data pipeline. How would you approach it?
+
+Candidate: I would start by identifying the data sources, ingestion mechanisms, and processing requirements. A typical architecture might include:
+
+* Data ingestion using streaming or batch systems
+* Storage in a distributed file system or data lake
+* Processing using Spark or similar frameworks
+* Serving layer for analytics or APIs
+
+I would ensure fault tolerance by using checkpointing and retries. Monitoring and logging would also be critical to track system health.
+
+⸻
+
+Interviewer: How would you handle failures in such a system?
+
+Candidate: I would design the system with resilience in mind. This includes:
+
+* Retry mechanisms for transient failures
+* Idempotent operations to avoid duplicate processing
+* Checkpointing to resume from the last successful state
+* Alerting systems to notify issues in real time
+
+⸻
+
+Interviewer: Let’s switch gears. Can you explain the difference between RDDs and DataFrames in Spark?
+
+Candidate: Yes. RDDs are the low-level abstraction in Spark, providing more control but requiring manual optimization. DataFrames, on the other hand, are higher-level abstractions with schema information, allowing Spark to optimize execution using its Catalyst optimizer.
+
+In most cases, DataFrames are preferred due to better performance and ease of use.
+
+⸻
+
+Interviewer: What about machine learning? Have you worked with any models?
+
+Candidate: Yes, I’ve worked with several machine learning models including regression, classification, and clustering. I’ve used libraries like scikit-learn for building models and pandas for preprocessing.
+
+More recently, I’ve focused on NLP tasks and transformer-based models. I’ve explored tokenization, embeddings, and sequence modeling.
+
+⸻
+
+Interviewer: How do you evaluate model performance?
+
+Candidate: It depends on the problem type. For classification, I use metrics like accuracy, precision, recall, and F1-score. For regression, I use metrics like mean squared error and R-squared.
+
+I also perform cross-validation to ensure the model generalizes well to unseen data.
+
+⸻
+
+Interviewer: Can you describe a challenging bug you faced and how you resolved it?
+
+Candidate: One challenging issue involved inconsistent results in a distributed job. After investigation, I realized it was due to non-deterministic ordering in a transformation. Since Spark operations are parallel, relying on implicit ordering caused unexpected behavior.
+
+I fixed this by explicitly defining ordering using orderBy and ensuring deterministic transformations.
+
+⸻
+
+Interviewer: That’s a good example. How do you stay updated with new technologies?
+
+Candidate: I regularly read technical blogs, follow documentation, and experiment with new tools. I also build small projects to test concepts. This hands-on approach helps me understand technologies deeply.
+
+⸻
+
+Interviewer: Do you have any experience with version control and collaboration?
+
+Candidate: Yes, I use Git extensively. I follow best practices like branching strategies, pull requests, and code reviews. Collaboration is important, so I ensure clear communication and proper documentation.
+
+⸻
+
+Interviewer: Let’s discuss your strengths and areas for improvement.
+
+Candidate: My strengths include problem-solving, adaptability, and a strong foundation in data systems. I enjoy breaking down complex problems into manageable components.
+
+As for improvement, I’m continuously working on improving system design skills and gaining deeper expertise in large-scale distributed architectures.
+
+⸻
+
+Interviewer: Where do you see yourself in the next few years?
+
+Candidate: I see myself growing into a role where I can design and lead complex data and AI systems. I want to contribute to building scalable and intelligent solutions that solve real-world problems.
+
+⸻
+
+Interviewer: Do you have any questions for us?
+
+Candidate: Yes, I’d like to know more about the team structure and the kind of projects I would be working on. Also, how does the company support learning and growth?
+
+⸻
+
+Interviewer: Great questions. We have a collaborative team environment and encourage continuous learning through internal sessions and external resources.
+
+⸻
+
+Candidate: That sounds great. Thank you for the opportunity to interview today.
+
+⸻
+
+Interviewer: Thank you for your time. We’ll get back to you soon.
+
+⸻
+
+(End of Transcript)
